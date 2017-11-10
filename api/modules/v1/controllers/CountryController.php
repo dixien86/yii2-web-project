@@ -35,6 +35,13 @@ class CountryController extends ActiveController
           'Access-Control-Expose-Headers' => ['X-Pagination-Current-Page'],
         ]
     ];
+	
+	 $behaviors['contentNegotiator'] = [
+        'class' => 'yii\filters\ContentNegotiator',
+        'formats' => [
+            'application/json' => Response::FORMAT_JSON,
+        ]
+    ];
 
     // re-add authentication filter
     $behaviors['authenticator'] = $auth;
