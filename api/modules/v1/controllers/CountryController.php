@@ -59,6 +59,52 @@ class CountryController extends ActiveController
   }
 
   public $modelClass = 'api\modules\v1\models\Country';
+  public $session = Yii::$app->session;
+
+
+  public function actionPrepend($input){
+
+      if (!isset($session['queue']) || count($session['queue'])==0)
+      {
+          $session['queue'] = array($input);
+      }
+      else {
+         $myarray = $session['queue'];
+         array_unshift($myarray, $input);
+         $session['queue'] = $myarray;
+      }
+      return  $session['queue']; 
+  }
+  public function actionPop(){
+     if(!isset($session['queue']) || count($session['queue'])==0){
+         $myarray = $session['queue'];
+         array_shift($myarray);
+         $session['queue'] = $myarray; 
+     }
+     return  $session['queue'];
+}
+
+  public function actionAppend($input){
+     if(!isset($session['queue']) || count($session['queue'])==0) {
+         $myarray = $session['queue'];
+         array_push($myarray,$input);
+         $session['queue'] = $myarray;
+     }
+
+     return  $session['queue'];
+  }
+
+  public function actionEject(){
+      if(!isset($session['queue']) || count($session['queue'])==0) {
+          $myarray = $session['queue'];
+          array_pop($myarray);
+          $session['queue'] = $myarray;
+      }
+  }
+
+  public function actionShow($order){
+     return (!isset($session['queue']) || count($session['queue'])==0)  ? $session['queue'] : [];
+  }
 
 
 }

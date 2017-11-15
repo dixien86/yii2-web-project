@@ -3,8 +3,8 @@
 $params = array_merge(
     require(__DIR__ . '/../../common/config/params.php'),
     require(__DIR__ . '/../../common/config/params-local.php'),
-    require(__DIR__ . '/params.php'),
-    require(__DIR__ . '/params-local.php')
+    require(__DIR__ . '/params.php')
+//    require(__DIR__ . '/params-local.php')
 );
 
 return [
@@ -41,6 +41,16 @@ return [
                     'controller' => 'v1/country',
                     'tokens' => [
                         '{id}' => '<id:\\w+>'
+                    ],
+                    'pluralize' => false,
+                    'extraPatterns' => [
+                        'POST prepend/{input}' => 'prepend',
+                        'POST pop' => 'pop',
+                        'POST append/{input}' => 'append',
+                        'POST eject' => 'eject',
+                        '
+                        POST show' => 'show',
+
                     ]
                     
                 ]
